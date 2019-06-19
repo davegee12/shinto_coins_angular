@@ -1,0 +1,21 @@
+var express = require("express");
+var app = express();
+var path = require('path');
+
+const flash = require('express-flash');
+app.use(flash());
+
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
+
+app.use(express.static( __dirname + '/public/dist/public' ));
+
+// Mongoose stuff
+require('./server/config/mongoose.js');
+
+// Routes
+require('./server/config/routes.js')(app);
+
+app.listen(4200, function () {
+    console.log("listening on port 4200");
+});
